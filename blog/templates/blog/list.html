@@ -22,8 +22,11 @@
     <li class="list-group-item">
         
       <a href="{% url 'post-details' t.id %}"> {{t.title}} </a>
-      <p > {{t.text}}</p>
-    
+      <p style=" color: black;" class="font-text"> {{t.text}}</p>
+        
+      <button type="button" class="btn btn-secondary"><a href="{% url 'update-post' t.id %}" style="color: white;">Update Post</a></button>
+      <button type="button" class="btn btn-danger"><a href="{% url 'delete-post' t.id %}" style="color: white;">Delete Post</a></button>
+      
        
     </li>
 

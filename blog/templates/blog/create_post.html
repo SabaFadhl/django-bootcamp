@@ -2,8 +2,11 @@
 
 
 
-<form action="{% url 'create-post' %}" method="post">
+<form method="post">
     {% csrf_token %}
-    {{ form }}
+    {{ form.as_ul }}
+    {% for i in forms.errors %}
+    <p> {{i}}</p>
+    {% endfor %}
     <input type="submit" value="Submit">
 </form>

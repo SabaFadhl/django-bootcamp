@@ -1,6 +1,7 @@
 from django import forms
 
 from .models import Post
+from django.contrib.auth import authenticate
 
 class PostForm(forms.Form):
 
@@ -32,3 +33,27 @@ class PostForm(forms.Form):
 
 
     # def update_vie
+
+
+
+class LoginForm(forms.Form):
+
+    username = forms.CharField(label='Username', max_length=100)
+    password = forms.CharField(label='Password', max_length=200, widget=forms.PasswordInput())
+
+
+  
+
+    def authentication(self):
+
+        username = self.cleaned_data['username']
+        password = self.cleaned_data['password']
+
+        is_authentication = authenticate(username=username, password=password)
+
+        if is_authentication:
+            return is_authentication
+        return None
+
+        # return is_authentication
+

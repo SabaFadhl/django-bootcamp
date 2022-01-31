@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-
+from django.contrib.auth.models import User
 
 class Post(models.Model):
     """
@@ -17,3 +17,7 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
+
+
+# class PostUser(User):
+#     mobile_number

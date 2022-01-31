@@ -1,17 +1,10 @@
-{% comment %} {% extends 'base.html' %} {% endcomment %}
 
-
-
-<form method="post">
+<form action="{% url 'login' %}"  method="post">
     {% csrf_token %}
     {{ form.as_ul }}
     {% for i in forms.errors %}
     <p> {{i}}</p>
     {% endfor %}
-    {% for i in errors %}
-    <p> {{i}}</p>
-    {% endfor %}
 
     <input type="submit" value="Submit">
-
-</form>  
+</form>    

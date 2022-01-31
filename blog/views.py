@@ -1,16 +1,71 @@
 # from turtle import title
+from re import template
 from django.forms import forms
 from django.shortcuts import render, redirect
 
-from django.http import HttpResponse
+from django.http import HttpResponse, request
+from django.template import context
 
 from .models import Post
+from django.contrib.auth import authenticate, login, logout
 
 
-from .forms import PostForm
+
+from .forms import PostForm, LoginForm
 # Create your views here.
 
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, View
+
+from django.contrib.auth.decorators import login_required
+
+
+
+class LoginView(View):
+    
+    form = LoginForm
+    template_name = 'blog/login.html'
+
+    def get(self, request, **args):
+
+        if request.user.is_authenticated:
+            return redirect('user-info', permanent=False)
+
+
+        context = {
+            'form': LoginForm()
+        }
+        return render(request, self.template_name, context)
+
+
+
+    def post(self, request, **args):
+        form = self.form(request.POST)
+        if form.is_valid():
+            user = form.authentication()
+            if user is None:
+                context = {
+                    'errors': "User Login Field"
+                }
+                return render(request, self.template_name, context)
+            login(request, user)        
+        return redirect('user-info', permanent=False)
+
+
+
+
+
+@login_required
+def user_profile(request):
+    return render(request, 'blog/user.html')
+
+
+@login_required
+def logout_view(request):
+    logout(request)
+    return redirect('login', permanent=False)
+
+    
+
 
 
 class PostList(ListView):

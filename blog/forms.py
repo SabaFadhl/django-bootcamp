@@ -4,7 +4,6 @@ from .models import Post
 from django.contrib.auth import authenticate
 
 class PostForm(forms.Form):
-
     title = forms.CharField(label='Title', max_length=100)
     text = forms.CharField(label='Text')
     pub_date = forms.DateField(label="Publish Date")

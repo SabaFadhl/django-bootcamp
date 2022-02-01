@@ -11,7 +11,7 @@ class Post(models.Model):
     slug = models.SlugField(null=True)
     text = models.TextField(null=True)
     pub_date = models.DateField(null=True)
-
+    # create_by = models.ForeignKey()
 
 
     def __str__(self):

@@ -1,5 +1,12 @@
 {% extends 'base.html' %}
 
+
+
+
+{% block css%}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+{% endblock%}
 {% block title%}
 
     List of Post
@@ -25,7 +32,15 @@
       <button type="button" class="btn btn-secondary"><a href="{% url 'update-post' t.id %}" style="color: white;">Update Post</a></button>
       <button type="button" class="btn btn-danger"><a href="{% url 'delete-post' t.id %}" style="color: white;">Delete Post</a></button>
       
-       
+
+      {% if user.is_authenticated %}
+
+      <!-- <button type="button" class="btn btn-success px-3"><i class="far fa-thumbs-up" aria-hidden="true"></i></button> -->
+      <a class="btn btn-success likebutton" id="like{{t.id}}" href="#" data-catid="{{ t.id }}">Like</a>
+    
+      {% endif %}
+      
+      <button type="button" class="btn btn-success likebutton" aria-disabled="true" id="like{{t.id}}" href="#" data-catid="{{ t.id }}" disabled>{{t.like_count()}}</button>
     </li>
 
 
@@ -35,3 +50,39 @@
 </ul>
 
 {% endblock %}
+
+
+{% block js %}
+
+<script>
+
+$('.likebutton').click(function(){
+
+    var catid;
+    catid = $(this).attr("data-catid");
+    console.log("javascript run", catid, 1);
+
+
+    $.ajax(
+    {
+        type:"GET",
+        url: "/api/like-post/",
+        data:{
+                 post_id: catid
+        },
+        success: function( data ) 
+        {
+            console.log("this data ", data)
+            // $( '#like'+ catid ).remove();
+            // $( '#message' ).text(data);
+        }
+     })
+
+
+})
+   
+
+
+</script>
+
+{% endblock%}

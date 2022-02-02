@@ -17,6 +17,10 @@ from django.contrib import admin
 from django.urls import path, include
 from blog.views import list_blog, post_details, create_post, PostList, LoginView, user_profile, logout_view
 
+from django.conf import settings
+from django.conf.urls.static import static
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('post-list/', PostList.as_view(), name='post-list'),
@@ -35,4 +39,4 @@ urlpatterns = [
     # path('account/', include("account.urls")),
 
 
-] 
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

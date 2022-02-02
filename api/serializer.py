@@ -14,3 +14,6 @@ class PostSerializer(serializers.ModelSerializer):
         fields = ['title', 'slug']
 
 
+
+
+

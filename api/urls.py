@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 
-from .views import PostApiList
+from .views import PostApiList, LikePostCreate
 
 
 
@@ -25,6 +25,8 @@ from .views import PostApiList
 urlpatterns = [
     
     path('', PostApiList.as_view()),
+
+    path('like-post/', LikePostCreate.as_view())
 
 
 ] 
